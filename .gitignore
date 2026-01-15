@@ -1,0 +1,34 @@
+# Terraform state
+*.tfstate
+*.tfstate.*
+.terraform/
+crash.log
+*.tfvars.backup
+*.tfplan
+*.tfapply
+
+# Sensitive variable files
+*.tfvars
+!envs/**/terraform.tfvars
+
+# Local .terraform directories
+**/.terraform/*
+
+# Editor/OS files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+
+# Python cache (por si hay scripts auxiliares)
+__pycache__/
+*.pyc
+
+# Backup files
+*~
+*.bak
+
+# Ignore local credentials
+.terraformrc
+.terraform.d/
