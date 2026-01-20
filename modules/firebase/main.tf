@@ -1,9 +1,9 @@
-resource "google_firebase_project" "default" {
+resource "google_firebase_project" "eqx" {
   provider = google-beta
   project  = var.project_id
 }
 
-resource "google_firebase_database_instance" "default" {
+resource "google_firebase_database_instance" "eqx-data-base" {
   provider = google-beta
   project  = var.project_id
   region   = var.region
@@ -11,9 +11,9 @@ resource "google_firebase_database_instance" "default" {
 }
 
 output "firebase_project_id" {
-  value = google_firebase_project.default.project
+  value = google_firebase_project.eqx-data-base.project
 }
 
 output "firebase_database_instance_name" {
-  value = google_firebase_database_instance.default.name
+  value = google_firebase_database_instance.eqx-data-base.name
 }

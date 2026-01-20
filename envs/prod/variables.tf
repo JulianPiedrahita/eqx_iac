@@ -19,6 +19,16 @@ variable "image_url" {
   type        = string
 }
 
+variable "project_name" {
+  description = "GCP project name"
+  type        = string
+}
+
+variable "org_id" {
+  description = "GCP organization ID"
+  type        = string
+}
+
 variable "secret_key" {
   description = "Secret key for JWT (env var SECRET_KEY)"
   type        = string

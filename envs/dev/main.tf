@@ -40,6 +40,13 @@ resource "google_project_service" "cloudbuild" {
   service = "cloudbuild.googleapis.com"
 }
 
+
+module "firebase" {
+  source     = "../../modules/firebase"
+  project_id = var.project_id
+  region     = var.region
+}
+
 module "cloud_run" {
   source        = "../../modules/cloud_run"
   service_name  = var.service_name
@@ -49,19 +56,29 @@ module "cloud_run" {
   jwt_algorithm = var.jwt_algorithm
 }
 
-output "cloud_run_url" {
-  value = module.cloud_run.url
-}
-
-module "firebase" {
-  source     = "../../modules/firebase"
-  project_id = var.project_id
-  region     = var.region
-}
-
 module "iam" {
   source     = "../../modules/iam"
   project_id = var.project_id
+}
+
+module "secret_manager" {
+  source     = "../../modules/secret_manager"
+}
+
+module "logging_monitoring" {
+  source     = "../../modules/logging_monitoring"
+}
+
+module "firewall" {
+  source     = "../../modules/firewall"
+}
+
+module "smoke_test" {
+  source     = "../../modules/smoke_test"
+}
+
+output "cloud_run_url" {
+  value = module.cloud_run.url
 }
 
 output "firebase_project_id" {

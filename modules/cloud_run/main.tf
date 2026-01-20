@@ -1,4 +1,4 @@
-resource "google_cloud_run_service" "default" {
+resource "google_cloud_run_service" "eqx-back" {
   name     = var.service_name
   location = var.region
 
@@ -29,12 +29,12 @@ resource "google_cloud_run_service" "default" {
 }
 
 resource "google_cloud_run_service_iam_member" "noauth" {
-  service  = google_cloud_run_service.default.name
-  location = google_cloud_run_service.default.location
+  service  = google_cloud_run_service.eqx-back.name
+  location = google_cloud_run_service.eqx-back.location
   role     = "roles/run.invoker"
   member   = "allUsers"
 }
 
 output "url" {
-  value = google_cloud_run_service.default.status[0].url
+  value = google_cloud_run_service.eqx-back.status[0].url
 }
