@@ -1,0 +1,49 @@
+stages:
+  - validate
+  - tfsec
+  - plan
+  - apply
+
+variables:
+  TF_ROOT: "envs/dev"
+  TF_VERSION: "1.5.0"
+
+image:
+  name: hashicorp/terraform:${TF_VERSION}
+  entrypoint: [""]
+
+before_script:
+  - cd $TF_ROOT
+  - terraform --version
+
+validate:
+  stage: validate
+  script:
+    - terraform init -input=false
+    - terraform validate
+
+tfsec:
+  stage: tfsec
+  image:
+    name: aquasec/tfsec:latest
+    entrypoint: [""]
+  script:
+    - tfsec .
+  allow_failure: false
+
+plan:
+  stage: plan
+  script:
+    - terraform init -input=false
+    - terraform plan -out=tfplan
+  artifacts:
+    paths:
+      - $TF_ROOT/tfplan
+
+apply:
+  stage: apply
+  script:
+    - terraform init -input=false
+    - terraform apply -auto-approve tfplan
+  environment:
+    name: dev
